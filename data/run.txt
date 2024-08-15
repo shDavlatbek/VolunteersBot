@@ -1,0 +1,3 @@
+py .\manage.py load_categories .\data\categories.txt app Category
+
+py .\manage.py load_languages .\data\languages.txt app Language   

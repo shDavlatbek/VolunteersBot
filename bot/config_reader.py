@@ -1,10 +1,10 @@
-from pydantic import SecretStr, RedisDsn
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     bot_token: SecretStr
-    redis_url: RedisDsn
+    redis_url: str
     
     allowed_hosts: list[str]
     debug: bool

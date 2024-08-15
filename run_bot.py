@@ -26,7 +26,7 @@ def create_bot() -> Bot:
 
 
 def create_dispatcher() -> Dispatcher:
-    dp = Dispatcher(storage=RedisStorage(config.redis_url))
+    dp = Dispatcher(storage=RedisStorage.from_url(config.redis_url))
     dp.include_routers(user_start.router)
     dp.include_routers(guest_list.router)
     dp.include_routers(messages.router)

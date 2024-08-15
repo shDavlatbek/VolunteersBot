@@ -11,6 +11,8 @@ services:
       - POSTGRES_HOST=${DJANGO_DB_HOST}
       - POSTGRES_PORT=${DJANGO_DB_PORT}
     restart: always
+    networks:
+      - volunteer
 
   web:
     restart: always
@@ -22,7 +24,7 @@ services:
       - seccomp:unconfined
     volumes:
       - ./:/app
-      - static_volume:/home/app/web/static
+      - ./static:/home/app/web/static
       - ./media:/home/app/web/media
     env_file:
       - .env
@@ -30,6 +32,8 @@ services:
       - 8053:8053
     depends_on:
       - db
+    networks:
+      - volunteer
 
   bot:
     restart: always
@@ -44,11 +48,18 @@ services:
       - web
     env_file:
       - .env
+    networks:
+      - volunteer
 
   redis:
     image: redis:6-alpine
     restart: always
+    networks:
+      - volunteer
  
 volumes:
   postgres_data:
   static_volume: 
+
+networks:
+  volunteer:

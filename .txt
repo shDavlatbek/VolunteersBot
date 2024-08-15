@@ -1,0 +1,9 @@
+CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS              PORTS                                       NAMES
+35787bbc67f1   volunteersbot-bot   "/home/app/web/entry…"   About a minute ago   Up About a minute                                               volunteersbot-bot-1
+f3a19d53678a   volunteersbot-web   "/home/app/web/entry…"   About a minute ago   Up About a minute   0.0.0.0:8053->8053/tcp, :::8053->8053/tcp   volunteersbot-web-1
+e593f478cc14   redis:6-alpine      "docker-entrypoint.s…"   2 minutes ago        Up About a minute   6379/tcp                                    volunteersbot-redis-1
+89a1b9a6a80a   postgres:16         "docker-entrypoint.s…"   2 minutes ago        Up About a minute   5432/tcp                                    volunteersbot-db-1
+21ebe6067c8d   hydrosystem-web     "/app/entrypoint.sh …"   4 days ago           Up 4 days           0.0.0.0:8199->8199/tcp, :::8199->8199/tcp   hydrosystem-web-1
+e9ff5cd2da8b   postgres:16         "/bin/bash -c 'while…"   4 days ago           Up 4 days           5432/tcp                                    hydrosystem-backup-1
+4db3b71f075a   postgres:16         "docker-entrypoint.s…"   4 days ago           Up 4 days           5432/tcp                                    hydrosystem-db-1
+79a39005bda2   rent-hall-web       "python manage.py ru…"   10 days ago          Up 10 days          0.0.0.0:8984->8984/tcp, :::8984->8984/tcp   rent-hall-web-1

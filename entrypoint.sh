@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "DATABASE_NAME" ]
+if [ "$DATABASE" = "volunteer" ]
 then
     echo "Waiting for postgres..."
 

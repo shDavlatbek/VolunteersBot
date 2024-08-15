@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-kjf)3v7xxb)hc@0%4c#lun-%o$%++&9p=+ngw(v57^$s6gyi3)
 DEBUG = config.debug
 
 ALLOWED_HOSTS = config.allowed_hosts
-CSRF_TRUSTED_ORIGINS = config.allowed_hosts
+CSRF_TRUSTED_ORIGINS = ['https://guests.culturevolunteers.uz']
 
 # Application definition
 

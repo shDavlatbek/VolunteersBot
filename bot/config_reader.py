@@ -3,7 +3,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    
     bot_token: SecretStr
     redis_url: RedisDsn
     

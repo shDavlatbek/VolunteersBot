@@ -1,15 +1,15 @@
 services:
   db:
-    image: postgres:16-buster
+    image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file: .env
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_HOST=${DB_HOST}
-      - POSTGRES_PORT=${DB_PORT}
+      - POSTGRES_USER=${DJANGO_DB_USER}
+      - POSTGRES_PASSWORD=${DJANGO_DB_PASSWORD}
+      - POSTGRES_DB=${DJANGO_DB_NAME}
+      - POSTGRES_HOST=${DJANGO_DB_HOST}
+      - POSTGRES_PORT=${DJANGO_DB_PORT}
     restart: always
 
   web:
@@ -17,7 +17,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: gunicorn core.wsgi:application --bind 0.0.0.0:8053
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8053
     security_opt:
       - seccomp:unconfined
     volumes:

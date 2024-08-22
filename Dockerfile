@@ -14,12 +14,6 @@ COPY ./requirements.txt requirements.txt
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
-# Create directory for the app user and set ownership
-RUN addgroup --system app && adduser --system --group app \
-    && mkdir -p /home/app/web \
-    && mkdir /home/app/web/static \
-    && mkdir /home/app/web/media \
-    && chown -R app:app /home/app/web
 
 # Set the appropriate directories and switch to the app user
 ENV HOME=/home/app
@@ -32,9 +26,6 @@ COPY ./entrypoint.sh $APP_HOME
 
 # Ensure entrypoint script is executable
 RUN chmod +x /home/app/web/entrypoint.sh
-
-# Switch to non-root user
-USER app
 
 # Run entrypoint script
 ENTRYPOINT ["/home/app/web/entrypoint.sh"]

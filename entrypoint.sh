@@ -14,5 +14,6 @@ fi
 # python manage.py flush --no-input
 
 python manage.py migrate
+chmod 777 static
 python manage.py collectstatic --noinput
 exec "$@"

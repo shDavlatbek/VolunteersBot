@@ -1,3 +1,4 @@
+import time
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from .models import Message
@@ -8,8 +9,9 @@ import requests
 TOKEN = config.bot_token.get_secret_value()
 
 def message_info(message):
+    categories = message.category.all()
     return str(
-        (f"*Kategoriya:* {message.category}\n" if message.category else "") +
+        
         f"*Sarlavha:* {message.title}\n" +
         f"*Xabar:* {message.message}\n\n" +
         f"*Jo'natilgan vaqti:* {message.created_at.strftime('%d/%m/%Y %H:%M')}"
@@ -30,7 +32,7 @@ def send_message(chat_id, message):
     
 
 @receiver(m2m_changed, sender=Message.user.through)
-def notify_bot(sender, instance, action, **kwargs):
+def notify_bot(sender, instance, *args, **kwargs):
     user_ids = instance.user.all().values_list('telegram_id', flat=True)
     message = f"*Sizga yangi xabar keldi!*\n{message_info(instance)}"
     for user_id in user_ids:

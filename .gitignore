@@ -263,4 +263,6 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 contest*
+dev.env
+.txt
 # End of https://www.toptal.com/developers/gitignore/api/python,django

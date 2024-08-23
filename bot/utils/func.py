@@ -19,7 +19,6 @@ def guest_info(guest):
 @sync_to_async
 def message_info(message):
     return str(
-        (f"*Kategoriya:* {message.category}\n" if message.category else "") +
         f"*Sarlavha:* {message.title}\n" +
         f"*Xabar:* {message.message}\n\n" +
         f"*Jo'natilgan vaqti:* {message.created_at.strftime('%d/%m/%Y %H:%M')}"

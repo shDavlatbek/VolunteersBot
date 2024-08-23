@@ -3,7 +3,7 @@ services:
     image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    env_file: .env
+    env_file: dev.env
     environment:
       - POSTGRES_USER=${DJANGO_DB_USER}
       - POSTGRES_PASSWORD=${DJANGO_DB_PASSWORD}
@@ -19,7 +19,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8053
+    command: python manage.py runserver 0.0.0.0:8053
     security_opt:
       - seccomp:unconfined
     volumes:
@@ -27,7 +27,7 @@ services:
       - ./static:/home/app/web/static
       - ./media:/home/app/web/media
     env_file:
-      - .env
+      - dev.env
     ports:
       - 8053:8053
     depends_on:
@@ -47,7 +47,7 @@ services:
       - redis
       - web
     env_file:
-      - .env
+      - dev.env
     networks:
       - volunteer
 
@@ -56,13 +56,10 @@ services:
     restart: always
     networks:
       - volunteer
-    volumes:
-      - redis-data:/data
  
 volumes:
   postgres_data:
   static_volume: 
-  redis-data:
 
 networks:
   volunteer:

@@ -63,10 +63,18 @@ services:
     entrypoint: /bin/bash
     depends_on:
       - db
-    command: -c "while true; do /app/backup.sh; sleep 86400; done"  # Runs backup.sh every 24 hours
+    command: -c "while true; do /home/app/web/backup.sh; sleep 7200; done"  # Runs backup.sh every 24 hours
     env_file:
       - .env
+    environment:
+      - POSTGRES_USER=${DJANGO_DB_USER}
+      - POSTGRES_PASSWORD=${DJANGO_DB_PASSWORD}
+      - POSTGRES_DB=${DJANGO_DB_NAME}
+      - POSTGRES_HOST=${DJANGO_DB_HOST}
+      - POSTGRES_PORT=${DJANGO_DB_PORT}
     restart: always
+    networks:
+      - volunteer
 
   redis:
     image: redis:6-alpine

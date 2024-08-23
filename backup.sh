@@ -11,6 +11,12 @@ BACKUP_FILE="$BACKUP_DIR/backup_$TIMESTAMP.sql"
 # Create backup directory if it does not exist
 mkdir -p $BACKUP_DIR
 
+# Wait for the database to be ready
+until PGPASSWORD="$POSTGRES_PASSWORD" pg_isready -U "$POSTGRES_USER" -h "$POSTGRES_HOST" -p "$POSTGRES_PORT"; do
+  echo "Waiting for the database to be ready..."
+  sleep 2
+done
+
 # Backup database
 PGPASSWORD="$POSTGRES_PASSWORD" pg_dump -U $POSTGRES_USER -h $POSTGRES_HOST -p $POSTGRES_PORT -d $POSTGRES_DB > "$BACKUP_FILE"
 

@@ -265,4 +265,5 @@ pyrightconfig.json
 contest*
 dev.env
 .txt
+backup/
 # End of https://www.toptal.com/developers/gitignore/api/python,django

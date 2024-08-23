@@ -29,7 +29,7 @@ def send_message(chat_id, message):
     print(response)
     
 
-@receiver(post_save, sender=Message.user.through)
+@receiver(m2m_changed, sender=Message.user.through)
 def notify_bot(sender, instance, *args, **kwargs):
     user_ids = instance.user.all().values_list('telegram_id', flat=True)
     if user_ids:

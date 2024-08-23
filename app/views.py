@@ -10,3 +10,7 @@ def get_users_by_category(request):
         users_data = [{'id': user.id, 'name': user.full_name()} for user in users]
         return JsonResponse({'users': users_data})
     return JsonResponse({'users': []})
+
+def get_users_all(request):
+    users_data = [{'id': user.id, 'name': user.full_name()} for user in User.objects.all()]
+    return JsonResponse({'users': users_data})

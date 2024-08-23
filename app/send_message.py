@@ -3,7 +3,7 @@ from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from .models import Message
 
-from bot.config_reader import config
+from config.config_reader import config
 import requests
 
 TOKEN = config.bot_token.get_secret_value()

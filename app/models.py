@@ -1,7 +1,7 @@
 from django.db import models
 from django_countries.fields import CountryField
 
-from bot.config_reader import config
+from config.config_reader import config
 
 TOKEN = config.bot_token.get_secret_value()
 
@@ -41,6 +41,12 @@ class User(models.Model):
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
     
+    def guests_list(self):
+        return ', '.join([guest.full_name for guest in self.guests.all()])
+    
+    @property
+    def guest_count(self):
+        return self.guests.count()
     
 class Message(models.Model):
     user = models.ManyToManyField(User, related_name='messages', blank=True)

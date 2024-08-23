@@ -14,7 +14,7 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.redis import RedisStorage
 
-from bot.config_reader import config
+from config.config_reader import config
 from bot.handlers import user_start, guest_list, messages
 
 

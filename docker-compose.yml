@@ -54,6 +54,20 @@ services:
     networks:
       - volunteer
 
+  backup:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backup:/backups
+      - ./backup.sh:/home/app/web/backup.sh
+    entrypoint: /bin/bash
+    depends_on:
+      - db
+    command: -c "while true; do /app/backup.sh; sleep 86400; done"  # Runs backup.sh every 24 hours
+    env_file:
+      - .env
+    restart: always
+
   redis:
     image: redis:6-alpine
     restart: always

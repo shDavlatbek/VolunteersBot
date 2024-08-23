@@ -317,7 +317,7 @@ COUNTRIES_OVERRIDE = {
     "UA": "Ukraina",
     "AE": "Birlashgan Arab Amirliklari",
     "GB": "Birlashgan Qirollik",
-    "US": "Qo'shma Shtatlar",
+    "US": "Amerika Qo'shma Shtatlari (AQSH)",
     "UY": "Urugvay",
     "UZ": "O'zbekiston",
     "VU": "Vanuatu",

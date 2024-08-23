@@ -1,5 +1,6 @@
 services:
   db:
+    container_name: volunteer-postgres
     image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -15,6 +16,7 @@ services:
       - volunteer
 
   web:
+    container_name: volunteer-admin
     restart: always
     build:
       context: ./
@@ -36,6 +38,7 @@ services:
       - volunteer
 
   bot:
+    container_name: volunteer-bot
     restart: always
     build:
       context: ./

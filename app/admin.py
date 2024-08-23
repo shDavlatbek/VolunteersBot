@@ -7,13 +7,17 @@ from .forms import MessageForm
 class MessageAdmin(admin.ModelAdmin):
     form = MessageForm
     filter_horizontal = ('user',)
+    search_fields = ['title', 'created_at']
+    list_display = ['title', 'created_at']
+    list_filter = ['created_at']
+    list_per_page = 20
 
     class Media:
         js = ('app/custom_filter.js',)  
 
 class UserAdmin(admin.ModelAdmin):
     search_fields = ['telegram_id', 'first_name', 'last_name']
-
+    list_per_page = 20
     list_display = ['full_name', 'guests_list']
     list_filter = ['guests']
     
@@ -32,6 +36,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class GuestAdmin(admin.ModelAdmin):
     search_fields = ['full_name', 'name_of_group']
+    list_per_page = 20
     list_filter = ['state', 'language', 'sex']
     list_display = ['full_name', 'name_of_group', 'state', 'sex']
 

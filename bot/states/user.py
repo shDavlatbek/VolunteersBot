@@ -8,4 +8,6 @@ class User(StatesGroup):
     
     main_menu = State()
     guests_list = State()
+    guest_info = State()
     messages = State()
+    message_info = State()

@@ -5,7 +5,7 @@ from aiogram.types import Message
 from aiogram.types import ReplyKeyboardRemove
 from bot.states.user import User
 from bot.keyboards.user import user_main_menu
-from bot.inlines.user import messages_list
+from bot.inlines.user import messages_list_keyboard, message_info_keyboard
 from bot.inlines import inline_names as inn
 from bot.keyboards import key_names as kn
 from bot.models import user as db
@@ -24,7 +24,7 @@ async def message_list(message: Message, state: FSMContext):
         )
         await message.answer(
             text="Xabarni batafsil ko'rish uchun birini tanlang:",
-            reply_markup=messages_list(messages)
+            reply_markup=messages_list_keyboard(messages)
         )
         await state.set_state(User.messages)
     else:
@@ -37,11 +37,31 @@ async def message_info(callback: types.CallbackQuery, state: FSMContext):
     message_id = callback.data.split("_")[1]
     message_info = await db.get_message_info(message_id)
     await callback.answer()
-    await callback.message.answer(await func.message_info(message_info))
+    await callback.message.edit_text(
+        await func.message_info(message_info),
+        reply_markup=message_info_keyboard(message_id)
+    )
+    await state.set_state(User.message_info)
 
+
+@router.callback_query(User.message_info, F.data == inn.BACK["call_data"])
+async def message_info(callback: types.CallbackQuery, state: FSMContext):
+    message = callback.message
+    if messages := await db.get_messages(await db.get_user(message.chat.id)):
+        await message.edit_text(
+            text="Xabarni batafsil ko'rish uchun birini tanlang:",
+            reply_markup=messages_list_keyboard(messages)
+        )
+        await state.set_state(User.messages)
+    else:
+        await message.delete()
+        await message.answer("Sizda xabarlar mavjud emas", reply_markup=user_main_menu())
+        await state.set_state(User.main_menu)
+        return
 
 @router.callback_query(User.messages, F.data == inn.BACK["call_data"])
 async def back_to_main_menu(callback: types.CallbackQuery, state: FSMContext):
     await callback.answer()
+    await callback.message.delete()
     await callback.message.answer("Asosiy menyu", reply_markup=user_main_menu())
     await state.set_state(User.main_menu)

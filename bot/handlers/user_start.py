@@ -85,5 +85,6 @@ async def my_profile(message: Message):
 @router.callback_query(User.main_menu, F.data == inn.UPDATE_INFO['call_data'])
 async def guest_info(callback: types.CallbackQuery, state: FSMContext):
     await state.update_data(update_info=True)
+    await callback.message.delete()
     await callback.message.answer("Iltimos ismingizni kiriting:")
     await state.set_state(User.first_name)

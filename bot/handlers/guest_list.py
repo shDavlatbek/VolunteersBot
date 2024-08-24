@@ -5,7 +5,7 @@ from aiogram.types import Message
 from aiogram.types import ReplyKeyboardRemove
 from bot.states.user import User
 from bot.keyboards.user import user_main_menu
-from bot.inlines.user import guests_list
+from bot.inlines.user import guests_list_keyboard
 from bot.inlines import inline_names as inn
 from bot.keyboards import key_names as kn
 from bot.models import user as db
@@ -23,7 +23,7 @@ async def added_guests(message: Message, state: FSMContext):
         )
         await message.answer(
             text="Mehmonlar ma'lumotlarini ko'rish uchun birini tanlang:",
-            reply_markup=guests_list(guests)
+            reply_markup=guests_list_keyboard(guests)
         )
         await state.set_state(User.guests_list)
     else:
@@ -36,7 +36,7 @@ async def guest_info(callback: types.CallbackQuery, state: FSMContext):
     guest_id = callback.data.split("_")[1]
     guest_info = await db.get_guest_info(guest_id)
     await callback.answer()
-    await callback.message.answer(f"Mehmon haqida ma'lumot:\n{await func.guest_info(guest_info)}")
+    await callback.message.edit_text(f"Mehmon haqida ma'lumot:\n{await func.guest_info(guest_info)}")
 
 
 @router.callback_query(User.guests_list, F.data == inn.BACK["call_data"])

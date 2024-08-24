@@ -2,6 +2,7 @@ from aiogram.types import InlineKeyboardButton
 from aiogram.types import InlineKeyboardMarkup
 from . import inline_names as inn
 
+
 def guests_list(guests) -> InlineKeyboardMarkup:
     buttons = [
         [
@@ -12,6 +13,7 @@ def guests_list(guests) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
+
 def messages_list(messages) -> InlineKeyboardMarkup:
     buttons = [
         [
@@ -19,5 +21,15 @@ def messages_list(messages) -> InlineKeyboardMarkup:
         ] for ind, message in enumerate(messages)
     ]
     buttons.append([InlineKeyboardButton(text=inn.BACK["name"], callback_data=inn.BACK["call_data"])])
+    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
+    return keyboard
+
+
+def update_info_keyboard() -> InlineKeyboardMarkup:
+    buttons = [
+        [
+            InlineKeyboardButton(text=inn.UPDATE_INFO["name"], callback_data=inn.UPDATE_INFO["call_data"])
+        ]
+    ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard

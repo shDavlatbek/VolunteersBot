@@ -6,7 +6,6 @@ def guest_info(guest):
         f"*👤To'liq ismi:* {guest.full_name}\n" +
         (f"*🚻Jinsi:* {guest.get_sex_display()}\n" if guest.sex else "") +
         (f"*🌏Davlati:* {guest.state.name}\n" if guest.state else "") +
-        
         (f"*🚨Guruhi*: {guest.name_of_group}\n" if guest.name_of_group else "") +
         (f"*⭕️Kategoriyasi:* {guest.categories.name}\n" if guest.categories else "") +
         (f"*💬Tillari:* {', '.join([lang.name for lang in guest.language.all()])}\n" if guest.language.all() else "") +

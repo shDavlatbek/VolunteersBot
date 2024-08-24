@@ -33,13 +33,14 @@ class User(models.Model):
     telegram_id = models.BigIntegerField(unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    second_name = models.CharField(max_length=50)
     guests = models.ManyToManyField(Guest, blank=True, related_name='users')
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} {self.second_name}"
     
     def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} {self.second_name}"
     
     def guests_list(self):
         return ', '.join([guest.full_name for guest in self.guests.all()])

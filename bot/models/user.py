@@ -2,12 +2,8 @@ from app.models import User, Guest, Message
 from asgiref.sync import sync_to_async
 
 @sync_to_async
-def save_user_to_db(telegram_id, first_name, last_name) -> User:
-    return User.objects.create(telegram_id=telegram_id, first_name=first_name, last_name=last_name)
-
-@sync_to_async
-def check_user_exists(telegram_id) -> bool:
-    return True if User.objects.filter(telegram_id=telegram_id) else False
+def crete_or_update_user(**kwargs) -> User:
+    return User.objects.update_or_create(**kwargs)
 
 @sync_to_async
 def get_user(telegram_id) -> User:
